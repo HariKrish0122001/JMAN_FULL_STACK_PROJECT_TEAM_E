@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-      <Route path='/admin_training' element={userAuthenticated ? <Admin_training/>: <Navigate to ="/"/>}/>
+      <Route path='/admin_training' element={<Admin_training/>}/> {/* userAuthenticated ? <Admin_training/>: <Navigate to ="/"/> */}
       {/* <Route path='/admin_training' element={<Admin_training/>}/> */}
       <Route path='/' element={ <Login/>}/>
       <Route path='/signup' element={ <Signup/>}/>
