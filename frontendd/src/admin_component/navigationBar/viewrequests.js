@@ -7,7 +7,7 @@ import { useRef } from 'react';
 
 
 
-export default function Viewrequests({user}) {
+export default function Viewrequests({ user }) {
 
     const form = useRef();
     const [showModal, setShowModal] = useState(false);
@@ -31,32 +31,42 @@ export default function Viewrequests({user}) {
             }
         );
     }
-
+    const row = () => {
+        return (
+            <>
+                <td>Data 1</td>
+                <td>Data 2</td>
+                <td>Data 3</td>
+                <td>Data 4</td>
+            </>
+        )
+    }
     return (
         <>
             <button className="complaint" onClick={handleShow}>
-                View Requests 
+                View Requests
             </button>
             <Modal show={showModal} onHide={handleClose} className="complaint">
-                
-            <table className="table table-hover table-bordered results" id="allTrainings">
-                                                <thead>
-                                                    <tr>
-                                                        
-                                                        <th >Request Id</th>
-                                                        <th >User Name</th>
-                                                        <th>User Email </th>
-                                                        <th >Message </th>
-                                   
-                                                    </tr>
-                                                    <tr className="warning no-result">
-                                                        <td colspan="4"><i className="fa fa-warning"></i> No result</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {/* <Users usersData={userdata} searchQuery={searchQuery} handleRegister={handleRegister} /> */}
-                                                </tbody>
-                                            </table>
+
+                <table className="table table-hover table-bordered results" id="allTrainings">
+                    <thead>
+                        <tr>
+
+                            <th >Request Id</th>
+                            <th >User Name</th>
+                            <th>User Email </th>
+                            <th >Message </th>
+
+                        </tr>
+                        <tr className="warning no-result">
+                            <td colspan="4"><i className="fa fa-warning"></i> No result</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {/* <Users usersData={userdata} searchQuery={searchQuery} handleRegister={handleRegister} /> */}
+                        {row()}
+                    </tbody>
+                </table>
 
             </Modal>
         </>
