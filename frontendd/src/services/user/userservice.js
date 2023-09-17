@@ -1,11 +1,13 @@
-import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000'; // Replace with your API base URL
+
+import Localhost from '../../Http/http';
+
 
 const userapiService = {
   fetchUserData: async (user_id) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/users/get/${user_id}`);
+      const response = await Localhost.get(`/get/${user_id}`);
+      console.log("fetch userdata",response)
       return response;
     } catch (error) {
       throw error;
@@ -14,12 +16,36 @@ const userapiService = {
 
   fetchRegisteredUserData: async (user_id) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/users/view_trainings/${user_id}`);
+      console.log(user_id)
+      const response = await Localhost.get(`/view_trainings/${user_id}`);
       return response;
     } catch (error) {
+      console.log(error)
       throw error;
     }
   },
+  registerTraining:async (data)=>{
+    try{
+      debugger
+      const response=await Localhost.post('/register',data);
+      console.log("asddfddf",response)
+      return response
+    }
+    catch(error){
+      throw(error)
+    }
+  },
+  unregisterTraining: async(data)=>{
+    try{
+      const response=await Localhost.put('/unregister',data)
+      
+      return response
+    }
+    catch(e)
+    {
+      throw(e)
+    }
+  }
 };
 
 export default userapiService;

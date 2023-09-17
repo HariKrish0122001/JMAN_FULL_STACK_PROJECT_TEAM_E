@@ -1,7 +1,6 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import './register.scss';
 import { ToastContainer, toast } from 'react-toastify';
 import emailjs from 'emailjs-com';
@@ -11,10 +10,15 @@ import loginapiService from '../../../services/login/loginservice';
 function Signup() {
 
   const navigate = useNavigate();
+
   const formRef = useRef();
+
   const [name, setName] = useState('');
+
   const [email, setEmail] = useState('');
+
   const [password, setPassword] = useState('');
+  
   const [repassword, setRepassword] = useState('');
   
   const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/;

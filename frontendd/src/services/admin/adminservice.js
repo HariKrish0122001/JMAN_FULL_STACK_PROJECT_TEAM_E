@@ -1,12 +1,10 @@
-import axios from "axios";
-
-const API_BASE_URL = "http://localhost:5000"; // Replace with your API base URL
+import Localhost from '../../Http/http';
 
 const adminApiService = {
   createTraining: async (trainingData) => {
     try {
-      const response = await axios.post(
-        `${API_BASE_URL}/users/admin`,
+      const response = await Localhost.post(
+        `/admin`,
         trainingData,
         {
           headers: {
@@ -22,7 +20,7 @@ const adminApiService = {
   },
   fetchDeletedTrainings: async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/users/deleted_trainings`);
+      const response = await Localhost.get(`deleted_trainings`);
       return response;
     } catch (error) {
       throw error;
@@ -31,7 +29,7 @@ const adminApiService = {
 
   restoreTraining: async (trainingId) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/users/restore`, { id: trainingId });
+      const response = await Localhost.post(`/restore`, { id: trainingId });
       return response;
     } catch (error) {
       throw error;
@@ -39,7 +37,7 @@ const adminApiService = {
   },
   fetchUpcomingTrainings: async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/users/get_trainings`);
+      const response = await Localhost.get(`/get_trainings`);
       return response;
     } catch (error) {
       throw error;
@@ -48,7 +46,7 @@ const adminApiService = {
 
   deleteTraining: async (trainingId) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/users/dtrain`, { training_id: trainingId });
+      const response = await Localhost.post(`/dtrain`, { training_id: trainingId });
       return response;
     } catch (error) {
       throw error;
