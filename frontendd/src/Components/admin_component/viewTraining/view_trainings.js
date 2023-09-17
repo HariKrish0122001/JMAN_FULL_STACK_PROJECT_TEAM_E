@@ -1,9 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import adminApiService from '../../../services/admin/adminservice';
 
 function Training() {
   const [tableData, setTableData] = useState([]);
@@ -17,31 +18,38 @@ function Training() {
   const handleDelete = async (itemId) => {
     const training_id = itemId;
     try {
-      const response = await axios.post(`http://localhost:5000/users/dtrain`, { training_id });
-      if (response.data.message === 'Training deleted successfully') {
-        const updatedTableData = tableData.filter(item => item.id !== itemId);
-        setTableData(updatedTableData);
-        toast.success("Training deleted successfully");
-      } else {
-        toast.error('Error deleting item');
-      }
-    } catch (error) {
-      console.error('Error deleting item:', error);
-    }
-  };
+                    const response = await adminApiService.deleteTraining(itemId);
+                    console.log(response.data.message)
+                    if (response.data.message === 'Training deleted successfully') {
+        
+                        const updatedTableData = tableData.filter(item => item.id !== itemId);
+                        setTableData(updatedTableData);
+                        toast.success("Training deleted succesfully")
+                       setTimeout(()=>{
+                        window.location.reload()
+                       },1500)
+                    } else {
+                        toast.error('Error deleting item');
+                    }
+                } catch (error) {
+                    console.error('Error deleting item:', error);
+                }
+            };
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/users/get_trainings');
-      if (response.status === 200) {
-        setTableData(response.data.data);
-      } else {
-        console.log('Error response:', response);
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+
+                    const response = await adminApiService.fetchUpcomingTrainings();
+        
+                    if (response.status === 200) {
+                        setTableData(response.data.data);
+                    } else {
+                        console.log('Error response:');
+                    }
+                } catch (error) {
+                    console.log('Error fetching data:', error);
+                }
+            };
 
   useEffect(() => {
     fetchData();
@@ -127,3 +135,5 @@ function Training() {
 }
 
 export default Training;
+
+

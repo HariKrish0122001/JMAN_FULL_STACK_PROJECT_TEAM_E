@@ -3,11 +3,11 @@ import Users from './Users';
 import './style.scss'
 import { Navigate, useLocation } from 'react-router-dom';
 import Navbar from '../user_component/usernavbar';
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import View_trainings from './view_trainings';
-import Userauth from '../Userauth';
 import { useNavigate } from 'react-router-dom';
+import userapiService from '../../services/user/userservice';
+
 
 function UserForm() {
 
@@ -18,6 +18,8 @@ function UserForm() {
     const [traindata, setTraindata] = useState([])
     
     const [id, setId] = useState('')
+    
+    const [user_name,setUsername]=useState('')
 
     const [updateduser,Setupdateduser]=useState()
 
@@ -25,65 +27,25 @@ function UserForm() {
     
     const location = useLocation()
 
-    const [auth,SetAuth]=useState(true)
-
-    const [userAuthenticated, setuserAuthenticated] = useState(true);
-    
-
-    
-    const { user_id } = location.state
     const navigate=useNavigate();
 
-    const userValidation = async () => {
-        const jwt=localStorage.getItem('jwtToken');
-       
-            if(!jwt) {
-            // setuserAuthenticated(false);
-            toast.error('Unauthorized access');
-            navigate('/');
-            }
-            else{
-                // setuserAuthenticated(true);
-                }
-    }
+    console.log("locaion state",location.state)
+    const { user_id,username } = location.state
+    // const {user_name}=location.state.username   
 
 
-    // useEffect(() => {
-    //     // Check user authentication when the component mounts
-    //     const userValidation = async () => {
-    //         const jwt=localStorage.getItem('jwtToken');
-           
-    //             if(!jwt) {
-    //             // setuserAuthenticated(false);
-    //             toast.error('Unauthorized access');
-    //             navigate('/');
-    //             }
-    //             else{
-    //                 // setuserAuthenticated(true);
-    //             }
-                
-    //         // } else {
-    //         //     console.log("entered");
-    //         //     setuserAuthenticated(true);
-    //         //     // SetAuth(true)
-    //         // }
-    //     };
 
-    //     userValidation();
-    //     // Call the authentication check function
-    // }, []);
-
-       
     const getUserdata = async () => {
     
         try {
 
             setId(user_id)
-            const req = await fetch(`http://localhost:5000/users/get/${user_id}`);
-            const resData = await req.json();
-            if (resData.length > 0) {
-                // const initialUserdata = resData.map(user => ({ ...user }));
-                setUserdata(resData);
+            setUsername(username)
+            console.log(user_id)
+            const req = await userapiService.fetchUserData(user_id);
+            if (req.data.length > 0) {
+               
+                setUserdata(req.data);
             }
         } catch (e) {
             console.log(e);
@@ -94,8 +56,8 @@ function UserForm() {
         try {
 
             setId(user_id)
-            const req = await fetch(`http://localhost:5000/users/view_trainings/${user_id}`);
-            const resData = await req.json();
+            const req = await userapiService.fetchRegisteredUserData(user_id);
+            const resData = req.data
             if (resData.length > 0) {
                 setTraindata(resData);
             }
@@ -107,11 +69,10 @@ function UserForm() {
     useEffect(() => {
         getUserdata();
         getregisteredUserdata();
-        userValidation()
+
     }, [updatedtraininguser,updateduser]);
 
     useEffect(() => {
-        debugger;
         const jwtToken = localStorage.getItem('jwtToken');
         console.log(jwtToken)
         if (!jwtToken) {
@@ -133,24 +94,28 @@ function UserForm() {
                 userData.register = true
                 try {
                     // POST request to your server to insert the user data into a separate table
-                    const reg_train = await axios.post('http://localhost:5000/users/register', {
+                    const reg_train = await userapiService.registerTraining( {
                         training_id: userData.id,
-                        user_id: id,//static
+                        user_id: id,
                     }).then((response) => {
 
-                        console.log(response.data.message)
+                        if(response.data.message==='Register Data Updated successfully')
+                        {
+                            const updatedUsersData = [...userdata];
+                            updatedUsersData[index] = userData;
+                            updatedUsersData.splice(index, 1);
+                            toast.success("Registeration successful")
+        
+                            setUserdata(updatedUsersData);
+                            Setupdateduser(userdata)
+                        }
+                        else{
+                            toast.error("Failed to register")
+                        }
                     }).catch((e) => {
                         console.log(e)
                     })
-                    const updatedUsersData = [...userdata];
-                    updatedUsersData[index] = userData;
-                    updatedUsersData.splice(index, 1);
-                    toast.success("Registeration successful")
-                    // setTimeout(()=>{
-                    //     window.location.reload()
-                    // },2000)
-                    setUserdata(updatedUsersData);
-                    Setupdateduser(userdata)
+                    
                 } catch (error) {
                     toast.error('Error registering user:', error);
                 }
@@ -164,21 +129,29 @@ function UserForm() {
         const userData = updatedUsersData[index];
         
 
-        const confirmation = window.confirm('Do you want to register?');
-
+        const confirmation = window.confirm('Do you want to unregister this training?');
+     
         if (confirmation) {
            
             try {
-                const unregister = await axios.put('http://localhost:5000/users/unregister', {
+               
+                const unregister = await userapiService.unregisterTraining({
                     training_id: userData.id,
                     user_id: id
-                })
-                const updatedUsersData = [...traindata];
+                }).then((response)=>{
+                  if(response.data==='unregistered successfully')  {
+                    const updatedUsersData = [...traindata];
                 updatedUsersData[index] = userData;
                 updatedUsersData.splice(index, 1);
                 toast.info("Training unregistered successfully")
+               
                 setTraindata(updatedUsersData)
                 Setupdatedtraininguser(traindata)
+                  }
+                  else{
+                    toast.error("Failed to Unenroll")
+                  }
+                })
             } catch (error) {
                 console.log("error from db")
             }
@@ -190,7 +163,8 @@ function UserForm() {
         <div>
             <div className="for w-100">
                 <div className="container-fluid">
-                    <Navbar />
+                    <Navbar username={user_name}/>
+                    {/* <Navbar/> */}
                     <ToastContainer />
                     <React.Fragment>
                         <div class="accordion" id="accordionPanelsStayOpenExample">
@@ -217,8 +191,7 @@ function UserForm() {
                                             <table className="table table-hover table-bordered results" id="allTrainings">
                                                 <thead>
                                                     <tr>
-                                                        {/* <th>S.No</th> */}
-                                                        {/* <th >Domain Name</th> */}
+                                                     
                                                         <th >Domain Name</th>
                                                         <th >Training Name</th>
                                                         <th>Trainer</th>

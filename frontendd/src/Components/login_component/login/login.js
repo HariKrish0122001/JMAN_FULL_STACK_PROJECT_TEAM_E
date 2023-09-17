@@ -1,22 +1,28 @@
 import React, { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import './login.scss';
-import Cookies from 'js-cookie';
+
 import { ToastContainer, toast } from 'react-toastify';
+import loginapiService from '../../../services/login/loginservice';
+
 
 function Login() {
+
   const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
+
   const [password, setPassword] = useState('');
+
   const formref = useRef()
  
   const validationReg = async (e) => {
+
     e.preventDefault();
+
     const isValid = /@jmangroup\.com$/.test(email);
 
     if (!isValid) {
-      console.log('invalid')
       toast.error("Enter the organisation mail")
       formref.current.reset()
     }
@@ -26,23 +32,17 @@ function Login() {
     else {
       if (email.trim() !== '' && password.trim() !== '') {
         try {
-          const response = await axios.post('http://localhost:5000/users/', {
-            email,
-            password,
-          });
-          console.log("response from backend", response.data.message);
-          console.log("Token",response.data,response.data.token)
+          console.log("entered");
+          const response = await loginapiService.login(email, password);
           const token = response.data.token;
           if (response.data.message === 'User logged') {
             localStorage.setItem('jwtToken',token);
-           
             toast.success("Login successful")
             setTimeout(() => {
-              navigate('/userform', { state: { user_id: response.data.data } })
+              navigate('/userform', { state: { user_id: response.data.id,username:response.data.username } })
             }, 2000)
           }
           else if (response.data.message === 'Admin logged') {
-            console.log("admin authenticate")
             localStorage.setItem('jwtToken',token);
             toast.success(" Admin Login successful")
             setTimeout(() => {
@@ -60,8 +60,8 @@ function Login() {
         }
 
         catch (error) {
+          console.log("catch",error);
           toast.error('Invalid credentials');
-
         }
 
       }
