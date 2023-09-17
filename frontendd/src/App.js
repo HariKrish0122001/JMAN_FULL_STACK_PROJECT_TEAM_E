@@ -1,4 +1,4 @@
-import { Routes,Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Userauth from './Userauth';
 import './App.css';
 import { Navigate } from 'react-router-dom';
@@ -15,22 +15,17 @@ import { useNavigate } from 'react-router-dom';
 function App() {
 
   const userAuthenticated = Userauth();
-  console.log("checking",userAuthenticated);
+  console.log("checking", userAuthenticated);
 
   return (
     <div className="App">
       <Routes>
-<<<<<<< HEAD
-      <Route path='/admin_training' element={<Admin_training/>}/> {/* userAuthenticated ? <Admin_training/>: <Navigate to ="/"/> */}
-      {/* <Route path='/admin_training' element={<Admin_training/>}/> */}
-=======
-      {/* <Route path='/admin_training' element={userAuthenticated ? <Admin_training/>: <Navigate to ="/"/>}/> */}
-      <Route path='/admin_training' element={<Admin_training/>}/>
->>>>>>> origin/teja
-      <Route path='/' element={ <Login/>}/>
-      <Route path='/signup' element={ <Signup/>}/>
-      {/* <Route path="/userform" element={userAuthenticated ? <UserForm /> : <Navigate to="/" />} /> */}
-      <Route path="/userform" element={<UserForm />} />
+        {/* <Route path='/admin_training' element={userAuthenticated ? <Admin_training/>: <Navigate to ="/"/>}/> */}
+        <Route path='/admin_training' element={<Admin_training />} />
+        <Route path='/' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+        {/* <Route path="/userform" element={userAuthenticated ? <UserForm /> : <Navigate to="/" />} /> */}
+        <Route path="/userform" element={<UserForm />} />
       </Routes>
     </div>
   );

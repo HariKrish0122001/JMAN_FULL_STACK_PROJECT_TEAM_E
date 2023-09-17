@@ -18,38 +18,38 @@ function Training() {
   const handleDelete = async (itemId) => {
     const training_id = itemId;
     try {
-                    const response = await adminApiService.deleteTraining(itemId);
-                    console.log(response.data.message)
-                    if (response.data.message === 'Training deleted successfully') {
-        
-                        const updatedTableData = tableData.filter(item => item.id !== itemId);
-                        setTableData(updatedTableData);
-                        toast.success("Training deleted succesfully")
-                       setTimeout(()=>{
-                        window.location.reload()
-                       },1500)
-                    } else {
-                        toast.error('Error deleting item');
-                    }
-                } catch (error) {
-                    console.error('Error deleting item:', error);
-                }
-            };
+      const response = await adminApiService.deleteTraining(itemId);
+      console.log(response.data.message)
+      if (response.data.message === 'Training deleted successfully') {
+
+        const updatedTableData = tableData.filter(item => item.id !== itemId);
+        setTableData(updatedTableData);
+        toast.success("Training deleted succesfully")
+        setTimeout(() => {
+          window.location.reload()
+        }, 1500)
+      } else {
+        toast.error('Error deleting item');
+      }
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
+  };
 
   const fetchData = async () => {
     try {
 
-                    const response = await adminApiService.fetchUpcomingTrainings();
-        
-                    if (response.status === 200) {
-                        setTableData(response.data.data);
-                    } else {
-                        console.log('Error response:');
-                    }
-                } catch (error) {
-                    console.log('Error fetching data:', error);
-                }
-            };
+      const response = await adminApiService.fetchUpcomingTrainings();
+
+      if (response.status === 200) {
+        setTableData(response.data.data);
+      } else {
+        console.log('Error response:');
+      }
+    } catch (error) {
+      console.log('Error fetching data:', error);
+    }
+  };
 
   useEffect(() => {
     fetchData();
