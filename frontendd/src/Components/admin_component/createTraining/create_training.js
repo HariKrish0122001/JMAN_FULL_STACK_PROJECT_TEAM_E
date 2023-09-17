@@ -11,6 +11,9 @@ import View_training from '../viewTraining/view_trainings';
 import Archieve from '../archieveTrainings/archieve';
 import Navbar from '../navigationBar/adminnavbar';
 import { ToastContainer,toast} from 'react-toastify';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import adminApiService from '../../../services/admin/adminservice';
 // import Swal from 'sweetalert2';
 
 
@@ -26,15 +29,12 @@ function MyFormModal(props) {
         seats: 1, // Default seats value
     });
     const formRef=useRef()
+    const navigate=useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/users/admin', training, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+            const response = await adminApiService.createTraining(training);
             if (response.data.message==='response success') {
                 toast.success("Training created")
                 setTimeout(() => {
@@ -51,6 +51,14 @@ function MyFormModal(props) {
             formRef.current.reset()
         }
     };
+    useEffect(() => {
+        const jwtToken = localStorage.getItem('jwtToken');
+        console.log(jwtToken)
+        if (!jwtToken) {
+          toast.error('Unauthorized access');
+          navigate('/');
+        }
+      }, []);
 
     return (
         <>

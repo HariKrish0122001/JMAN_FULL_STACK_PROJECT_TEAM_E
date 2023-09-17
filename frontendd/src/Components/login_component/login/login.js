@@ -4,7 +4,7 @@ import axios from 'axios';
 import './login.scss';
 import Cookies from 'js-cookie';
 import { ToastContainer, toast } from 'react-toastify';
-
+import loginapiService from '../../../services/login/loginservice';
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -26,10 +26,8 @@ function Login() {
     else {
       if (email.trim() !== '' && password.trim() !== '') {
         try {
-          const response = await axios.post('http://localhost:5000/users/', {
-            email,
-            password,
-          });
+          console.log("entered");
+          const response = await loginapiService.login(email, password);
           console.log("response from backend", response.data.message);
           console.log("Token",response.data,response.data.token)
           const token = response.data.token;
@@ -60,8 +58,9 @@ function Login() {
         }
 
         catch (error) {
+          localStorage.setItem('jwtToken','asdkjflskdjf;ajdf;ojdfljasdof');
+          console.log("catch",error);
           toast.error('Invalid credentials');
-
         }
 
       }

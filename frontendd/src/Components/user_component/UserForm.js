@@ -6,8 +6,8 @@ import Navbar from '../user_component/usernavbar';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import View_trainings from './view_trainings';
-import Userauth from '../Userauth';
 import { useNavigate } from 'react-router-dom';
+import userapiService from '../../services/user/userservice';
 
 function UserForm() {
 
@@ -28,24 +28,11 @@ function UserForm() {
     const [auth,SetAuth]=useState(true)
 
     const [userAuthenticated, setuserAuthenticated] = useState(true);
-    
+    const navigate=useNavigate();
 
     
     const { user_id } = location.state
-    const navigate=useNavigate();
 
-    const userValidation = async () => {
-        const jwt=localStorage.getItem('jwtToken');
-       
-            if(!jwt) {
-            // setuserAuthenticated(false);
-            toast.error('Unauthorized access');
-            navigate('/');
-            }
-            else{
-                // setuserAuthenticated(true);
-                }
-    }
 
 
     // useEffect(() => {
@@ -79,7 +66,7 @@ function UserForm() {
         try {
 
             setId(user_id)
-            const req = await fetch(`http://localhost:5000/users/get/${user_id}`);
+            const req = await userapiService.fetchUserData(user_id);
             const resData = await req.json();
             if (resData.length > 0) {
                 // const initialUserdata = resData.map(user => ({ ...user }));
@@ -94,7 +81,7 @@ function UserForm() {
         try {
 
             setId(user_id)
-            const req = await fetch(`http://localhost:5000/users/view_trainings/${user_id}`);
+            const req = await userapiService.fetchRegisteredUserData(user_id);
             const resData = await req.json();
             if (resData.length > 0) {
                 setTraindata(resData);
@@ -107,11 +94,10 @@ function UserForm() {
     useEffect(() => {
         getUserdata();
         getregisteredUserdata();
-        userValidation()
+
     }, [updatedtraininguser,updateduser]);
 
     useEffect(() => {
-        debugger;
         const jwtToken = localStorage.getItem('jwtToken');
         console.log(jwtToken)
         if (!jwtToken) {

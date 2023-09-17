@@ -5,7 +5,7 @@ import axios from 'axios';
 import './register.scss';
 import { ToastContainer, toast } from 'react-toastify';
 import emailjs from 'emailjs-com';
-
+import loginapiService from '../../../services/login/loginservice';
 
 
 function Signup() {
@@ -50,7 +50,7 @@ function Signup() {
 
     else {
       try {
-        const response = await axios.post('http://localhost:5000/users/signin', data);
+        const response = await loginapiService.registerUser(data);
         console.log(response.data)
         if (response.data.message === "response success") {
           toast.success("User created successfully")
