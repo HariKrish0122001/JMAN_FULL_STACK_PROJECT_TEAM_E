@@ -1,23 +1,24 @@
-// const dotenv=require('dotenv')
-// dotenv.config({path:"./config.env"})
-// console.log(process.env.USER)
+
+const dotenv=require('dotenv')
+dotenv.config()
+
 const { Sequelize, DataTypes } = require("sequelize");
 const db_config = require("../../config/db-config.js")
 const sql = require("mysql2/promise")
 
 sql.
-    createConnection({ user: db_config.USER, password: db_config.PASSWORD })
+    createConnection({ user: process.env.USER, password: process.env.PASSWORD })
     .then(()=>
     {
         console.log("db CONNECTED successfully")
     })
 
 const sequelize= new Sequelize(
-    db_config.DATABASE,
-    db_config.USER,
-    db_config.PASSWORD,{
-        host:db_config.HOST,
-        dialect:db_config.DIALECT,
+    process.env.DATABASE,
+    process.env.USER,
+    process.env.PASSWORD,{
+        host:process.env.HOSTDB,
+        dialect:process.env.DIALECT,
         // timezone: '+05:30'
     }
 ) 
