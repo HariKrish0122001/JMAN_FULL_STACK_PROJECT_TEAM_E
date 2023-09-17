@@ -40,7 +40,7 @@ const login = async (req, res) => {
                     const token = jwt.sign({ userId: valid_user.id, email: valid_user.mail}, secretkey, {
                         expiresIn: '1h',
                       });
-                    res.send({data:valid_user.id,message:"User logged",token})
+                    res.send({data:valid_user,message:"User logged",token})
                 }
                 else{
                     res.send("Unauthorized user")

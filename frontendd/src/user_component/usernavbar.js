@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Complaint from "../user_component/complaint";
 import Cookies from 'js-cookie';
 
-function Usernavbar() {
+function Usernavbar({user}) {
+   
     const navigate=useNavigate();
     const handleLogout = ()=> {
         localStorage.removeItem('jwtToken');
@@ -13,7 +14,7 @@ function Usernavbar() {
         <>
             <div className="sidebar">
                 <p className='welcomeAdmin'> Welcome <br/><strong>User</strong></p>
-                <Complaint />
+                <Complaint user={user}/>
                 <div className="logout-btn-div">
                     <button className='logOut' onClick={handleLogout}>Logout <i class="logout fa-solid fa-arrow-right-from-bracket"></i></button>
                 </div>

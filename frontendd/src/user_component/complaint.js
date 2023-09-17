@@ -7,7 +7,8 @@ import { useRef } from 'react';
 
 
 
-export default function Complaint() {
+export default function Complaint({user}) {
+
     const form = useRef();
     const [showModal, setShowModal] = useState(false);
 
@@ -40,11 +41,11 @@ export default function Complaint() {
                 <form ref={form} onSubmit={sendEmail}>
                         <div className="column">
                             <label>Name <span className='reqfield'> * </span></label>
-                            <input className="complaintname" type="text" name="user_name" required/>
+                            <input className="complaintname" type="text" name="user_name" value={user.name} required/>
                         </div>
                         <div className="column">
                             <label>Email <span className='reqfield'> * </span></label>
-                            <input className="complaintemail" type="email" name="user_email" required/>
+                            <input className="complaintemail" type="email" name="user_email" value={user.mail} required/>
                         </div>
                     <div className="row">
                         <label>Message <span className='reqfield'> * </span></label>

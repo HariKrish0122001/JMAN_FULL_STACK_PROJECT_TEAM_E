@@ -9,6 +9,7 @@ import View_trainings from './view_trainings';
 import Userauth from '../Userauth';
 import { useNavigate } from 'react-router-dom';
 
+
 function UserForm() {
 
     const [searchQuery, setSearchQuery] = useState('');
@@ -31,21 +32,22 @@ function UserForm() {
     
 
     
-    const { user_id } = location.state
-    const navigate=useNavigate();
+    const { user } = location.state
+    const user_id=user.id;
+    // const navigate=useNavigate();
 
-    const userValidation = async () => {
-        const jwt=localStorage.getItem('jwtToken');
+    // const userValidation = async () => {
+    //     const jwt=localStorage.getItem('jwtToken');
        
-            if(!jwt) {
-            // setuserAuthenticated(false);
-            toast.error('Unauthorized access');
-            navigate('/');
-            }
-            else{
-                // setuserAuthenticated(true);
-                }
-    }
+    //         if(!jwt) {
+    //         // setuserAuthenticated(false);
+    //         toast.error('Unauthorized access');
+    //         navigate('/');
+    //         }
+    //         else{
+    //             // setuserAuthenticated(true);
+    //             }
+    // }
 
 
     // useEffect(() => {
@@ -107,17 +109,17 @@ function UserForm() {
     useEffect(() => {
         getUserdata();
         getregisteredUserdata();
-        userValidation()
+        // userValidation()
     }, [updatedtraininguser,updateduser]);
 
     useEffect(() => {
         debugger;
         const jwtToken = localStorage.getItem('jwtToken');
         console.log(jwtToken)
-        if (!jwtToken) {
-          toast.error('Unauthorized access');
-          navigate('/');
-        }
+        // if (!jwtToken) {
+        //   toast.error('Unauthorized access');
+        //   navigate('/');
+        // }
       }, []); // Empty dependency array ensures this runs once on component mount
       
   
@@ -190,7 +192,7 @@ function UserForm() {
         <div>
             <div className="for w-100">
                 <div className="container-fluid">
-                    <Navbar />
+                    <Navbar user={user} />
                     <ToastContainer />
                     <React.Fragment>
                         <div class="accordion" id="accordionPanelsStayOpenExample">

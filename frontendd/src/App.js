@@ -19,12 +19,13 @@ function App() {
   return (
     <div className="App">
       <Routes>
-      <Route path='/admin_training' element={userAuthenticated ? <Admin_training/>: <Navigate to ="/"/>}/>
-      {/* <Route path='/admin_training' element={<Admin_training/>}/> */}
+
+      {/* <Route path='/admin_training' element={userAuthenticated ? <Admin_training/>: <Navigate to ="/"/>}/>  */}
+      <Route path='/admin_training' element={<Admin_training/>}/>
       <Route path='/' element={ <Login/>}/>
       <Route path='/signup' element={ <Signup/>}/>
-      <Route path="/userform" element={userAuthenticated ? <UserForm /> : <Navigate to="/" />} />
-      {/* <Route path="/userform" element={<UserForm />} /> */}
+      {/* <Route path="/userform" element={userAuthenticated ? <UserForm /> : <Navigate to="/" />} /> */}
+      <Route path="/userform" element={<UserForm />} />
       </Routes>
     </div>
   );
