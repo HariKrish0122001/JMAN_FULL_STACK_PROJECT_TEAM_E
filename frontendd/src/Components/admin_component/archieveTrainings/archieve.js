@@ -86,7 +86,7 @@ function History() {
                                         <th scope="col">End Time</th>
                                         <th scope="col">RegisteredUsers</th>
                                         <th scope="col">VacanciesLeft</th>
-                                        <th scope="col"> </th>
+                                        <th scope="col">  </th>
 
                                     </tr>
                                 </thead>
@@ -104,7 +104,7 @@ function History() {
 
                                             <td>{(item.initial_seats) - (item.no_of_seats)}</td>
                                             <td>{item.no_of_seats}</td>
-                                            <td><button className='icon' onClick={() => handlerestore(item.id)}><i class="fa-solid fa-trash del"></i></button></td>
+                                            <td><button className='icon' onClick={() => handlerestore(item.id)}><i class="fa-solid fa-recycle" ></i></button></td>
 
                                         </tr>
                                     )) : ""}

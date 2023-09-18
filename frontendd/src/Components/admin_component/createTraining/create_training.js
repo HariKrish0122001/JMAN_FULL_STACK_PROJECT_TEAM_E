@@ -1,7 +1,5 @@
-// importing_necessary_packages
-
 import './style.scss'
-import React, { useState,useRef } from "react";
+import React, { useState, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Button from 'react-bootstrap/Button';
@@ -10,13 +8,7 @@ import axios from 'axios';
 import View_training from '../viewTraining/view_trainings';
 import Archieve from '../archieveTrainings/archieve';
 import Navbar from '../navigationBar/adminnavbar';
-import { ToastContainer,toast} from 'react-toastify';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import adminApiService from '../../../services/admin/adminservice';
-import SideNavbar from '../navbar/Bar'
-
-
+import { ToastContainer, toast } from 'react-toastify';
 
 
 function MyFormModal(props) {
@@ -27,23 +19,26 @@ function MyFormModal(props) {
         trainer: '',
         skill: '',
         description: '',
-        domain: 'Full Stack', 
-        seats: 1, 
+        domain: 'Full Stack',
+        seats: 1,
     });
-    const formRef=useRef()
-    const navigate=useNavigate();
+    const formRef = useRef()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await adminApiService.createTraining(training);
-            if (response.data.message==='response success') {
+            const response = await axios.post('http://localhost:5000/users/admin', training, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (response.data.message === 'response success') {
                 toast.success("Training created")
                 setTimeout(() => {
                     formRef.current.reset()
-                    window.location.reload()    
+                    window.location.reload()
                 }, 1500);
-                
+
             } else {
                 toast.error('Set training failed');
                 formRef.current.reset()
@@ -53,19 +48,11 @@ function MyFormModal(props) {
             formRef.current.reset()
         }
     };
-    useEffect(() => {
-        const jwtToken = localStorage.getItem('jwtToken');
-        console.log(jwtToken)
-        if (!jwtToken) {
-          toast.error('Unauthorized access');
-          navigate('/');
-        }
-      }, []);
 
     return (
         <>
 
-<ToastContainer/>
+            <ToastContainer />
             <Modal
                 {...props}
                 size="lg"
@@ -78,7 +65,7 @@ function MyFormModal(props) {
                     </Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body >
+                <Modal.Body>
                     <div className="train">
                         <div className="container">
                             <div className="row justify-content-md-center">
@@ -92,7 +79,7 @@ function MyFormModal(props) {
                                                 type="text"
                                                 id="trainingName"
                                                 placeholder="Training Name"
-                                              
+
                                                 onChange={(e) => setTraining({ ...training, training_name: e.target.value })}
                                                 required
                                             />
@@ -103,7 +90,7 @@ function MyFormModal(props) {
                                                 type="text"
                                                 id="trainer"
                                                 placeholder="Trainer"
-                                                
+
                                                 onChange={(e) => setTraining({ ...training, trainer: e.target.value })}
                                                 required
                                             />
@@ -114,7 +101,7 @@ function MyFormModal(props) {
                                                 type="text"
                                                 id="skillTitle"
                                                 placeholder="Title"
-                                               
+
                                                 onChange={(e) => setTraining({ ...training, skill: e.target.value })}
                                                 required
                                             />
@@ -124,16 +111,16 @@ function MyFormModal(props) {
                                             <textarea
                                                 id="description"
                                                 placeholder="Leave a comment here"
-                                                
+
                                                 onChange={(e) => setTraining({ ...training, description: e.target.value })}
-                                                
+
                                             ></textarea>
                                         </div>
                                         <div className="form-group">
                                             <label for="domain">Domain <span className='reqfield'> * </span></label>
                                             <select
                                                 id="domain"
-                                               
+
                                                 onChange={(e) => setTraining({ ...training, domain: e.target.value })}
                                                 required
                                             >
@@ -142,39 +129,39 @@ function MyFormModal(props) {
                                                 <option value="Consulting">Consulting</option>
                                             </select>
                                         </div>
-                                        <div className='date'> 
-                                        <div className="form-group">
-                                            <label for="startDate">Start Date <span className='reqfield'> * </span></label>
-                                            <DatePicker
-                                                selected={startDate}
-                                                onChange={(date) => {
-                                                    setStartDate(date);
-                                                    setTraining({ ...training, startDate: date });
-                                                }}
-                                                dateFormat="Pp"
-                                                showTimeSelect
-                                                timeFormat="p"
-                                                minDate={new Date()}
-                                                required
-                                            />
+                                        <div className='date'>
+                                            <div className="form-group">
+                                                <label for="startDate">Start Date <span className='reqfield'> * </span></label>
+                                                <DatePicker
+                                                    selected={startDate}
+                                                    onChange={(date) => {
+                                                        setStartDate(date);
+                                                        setTraining({ ...training, startDate: date });
+                                                    }}
+                                                    dateFormat="Pp"
+                                                    showTimeSelect
+                                                    timeFormat="p"
+                                                    minDate={new Date()}
+                                                    required
+                                                />
 
-                                        </div>
-                                        <div className="form-group">
-                                            <label for="endDate">End Date <span className='reqfield'> * </span></label>
-                                            <DatePicker
-                                                selected={endDate}
-                                                onChange={(date) => {
-                                                    setEndDate(date);
-                                                    setTraining({ ...training, endDate: date });
-                                                }}
-                                                dateFormat="Pp"
-                                                showTimeSelect
-                                                timeFormat="p"
-                                                minDate={new Date()}
-                                                required
-                                            />
-                                            
-                                        </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <label for="endDate">End Date <span className='reqfield'> * </span></label>
+                                                <DatePicker
+                                                    selected={endDate}
+                                                    onChange={(date) => {
+                                                        setEndDate(date);
+                                                        setTraining({ ...training, endDate: date });
+                                                    }}
+                                                    dateFormat="Pp"
+                                                    showTimeSelect
+                                                    timeFormat="p"
+                                                    minDate={new Date()}
+                                                    required
+                                                />
+
+                                            </div>
                                         </div>
                                         <div className="form-group">
                                             <label for="seats">No of Seats <span className='reqfield'> * </span></label>
@@ -184,18 +171,18 @@ function MyFormModal(props) {
                                                 placeholder="Seats"
                                                 min="1"
                                                 max="99"
-                                               
+
                                                 onChange={(e) => setTraining({ ...training, seats: e.target.value })}
                                                 required
                                             />
                                         </div>
-                                        <div className='end'> 
-                                        <Button type="submit" className="button_" name="Submit">
-                                            Submit
-                                        </Button>
-                                        <Button className="close" onClick={props.onHide}>
-                                            Close
-                                        </Button>
+                                        <div className='end'>
+                                            <Button type="submit" className="button_" name="Submit">
+                                                Submit
+                                            </Button>
+                                            <Button className="close" onClick={props.onHide}>
+                                                Close
+                                            </Button>
                                         </div>
 
                                     </form>
@@ -204,7 +191,12 @@ function MyFormModal(props) {
                         </div>
                     </div>
 
+
+
+
+
                     <Modal.Footer>
+
 
                     </Modal.Footer>
 
@@ -220,10 +212,15 @@ export default function Admin_training() {
 
     return (
         <>
+            <div className='title'>
+                <h1>Learning and Development</h1>
+            </div>
+
             <div className='maincontent'>
+
                 <div className="container mt-5">
-                    {/* <Navbar/> */}
-                    <SideNavbar />
+                    <Navbar />
+
                     <div className="row">
 
                         {/* Main Content */}
@@ -236,7 +233,7 @@ export default function Admin_training() {
                                                 <h3>New Training</h3>
                                             </div>
                                             <div className="card-body">
-                                                <p className='card-text'>"Effortlessly create and customize training sessions for your team's growth and development needs"</p>
+                                                <p className='card-text'>"Effortlessly create and customize training sessions for your team's growth and development needs. Tailor these sessions to address specific skills, knowledge gaps, and professional goals. Whether it's onboarding new members or existing talent."</p>
                                                 <Button className='schedule' variant="primary" onClick={() => setModalShow(true)}>
                                                     Schedule  <i className="fa-regular fa-calendar"></i>
                                                 </Button>
@@ -249,7 +246,7 @@ export default function Admin_training() {
                                                 <h3>Trainings</h3>
                                             </div>
                                             <div className="card-body">
-                                                <p className='card-text'>"Easily view and manage scheduled training sessions to keep your team's learning on track."</p>
+                                                <p className='card-text'>"Easily view and manage scheduled training sessions to keep your team's learning on track. Streamline communication, track progress, and adapt to evolving needs with our intuitive platform, ensuring continuous growth  of resources."</p>
 
                                                 <View_training />
                                             </div>
@@ -262,7 +259,7 @@ export default function Admin_training() {
                                                 <h3> History</h3>
                                             </div>
                                             <div className="card-body">
-                                                <p className='card-text'>"Access deleted training records and perform resets as needed for seamless course management."</p>
+                                                <p className='card-text'>"Effortlessly access deleted training records and perform resets for seamless course management. Ensure data integrity and maintain accurate training histories with ease, enhancing your organization's learning and development processes."</p>
 
                                                 <Archieve />
                                             </div>

@@ -44,6 +44,19 @@ li {
   padding: 0;
 }
 
+.card-header{
+  background-color: #19105b !important;
+  
+}
+h3{
+  color: white  !important;
+ 
+}
+.reg{
+  color: #ff6196 !important;
+  border: none;
+}
+
 .sidebar {
   background: $navbar;
   width: 10%;
@@ -123,7 +136,7 @@ li {
 /* maincontent */
 @media (min-width: 768px) {
   .maincontent {
-    margin: 15% 0 0 30%;
+    margin: 10% 0 0 28%;
   }
 }
 
@@ -135,7 +148,7 @@ li {
 
 @media (max-width: 767px) {
   .maincontent {
-    margin: 10% 0 0 10%;
+    margin: 5% 0 0 10%;
   }
 }
 
@@ -160,8 +173,7 @@ button[type="submit"]:hover {
   background-color: $primary-background  !important;
 }
 .icon{
-  background-color: #ff6196 !important;
-  color: white;
+  color: #ff6196 !important;
   border: none;
   width: 50%;
 }
@@ -310,4 +322,7 @@ textarea {
 }
 
 
-
+.title{
+  margin-top: 2%;
+  margin-left: 10%;
+}

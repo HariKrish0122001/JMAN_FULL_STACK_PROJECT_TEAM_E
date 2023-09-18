@@ -13,7 +13,7 @@ function Training() {
   const [sortOrder, setSortOrder] = useState('asc');
   const [selectedColumn, setSelectedColumn] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 1;
+  const rowsPerPage = 5;
 
   const handleClose = () => setModalShow(false);
   const handleShow = () => setModalShow(true);
@@ -62,7 +62,6 @@ function Training() {
     }
   };
 
-  // Function to handle the search input change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
@@ -83,7 +82,6 @@ function Training() {
     return result * order;
   });
 
-  // Calculate total pages and slice data for pagination
   const totalPages = Math.ceil(sortedData.length / rowsPerPage);
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
@@ -195,7 +193,7 @@ function Training() {
               </div>
             </div>
           </div>
-          {/* Pagination */}
+
           <div className="pagination">
             {Array.from({ length: totalPages }, (_, i) => (
               <button
@@ -210,7 +208,7 @@ function Training() {
         </Modal.Body>
       </Modal>
       <Button className="schedule" variant="primary" onClick={handleShow}>
-        Upcoming <i className="fa-solid fa-forward"></i>
+        Upcoming  <i className="fa-solid fa-forward"></i>
       </Button>
     </>
   );

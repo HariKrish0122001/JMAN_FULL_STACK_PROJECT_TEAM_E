@@ -23,17 +23,11 @@ export default function View_trainings({usersData,searchQuery,handleRegister}) {
                             <td className="btn-btn">
                                 <button
                                     onClick={() => handleRegister(index)}
-                                    className={`btn text-white`}
+                                    className={`reg`}
                                     disabled={uData.no_of_seats === 0}
                                 >
-                                    <span>
-                                            <span style={{ backgroundColor: '#ff6196', padding: '8px',borderRadius:'3px' }}>
-                                        Unenroll
-                                    </span>
+                                    <i class="fa-solid fa-user-minus"></i>
 
-                            
-                                     
-                                </span>
                             </button>
                         </td>
 
