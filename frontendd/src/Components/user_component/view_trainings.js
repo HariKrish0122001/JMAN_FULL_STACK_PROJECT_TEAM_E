@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
-
 import './style.scss';
-
 export default function View_trainings({usersData,searchQuery,handleRegister}) {
 
-    // const filteredUsersData = usersData.filter((uData) => {
-    // return uData.domain.toLowerCase().includes(searchQuery.toLowerCase())
-     
-    // })
 
     return (
-        <React.Fragment>
+        
 
             <>
                 {
@@ -33,17 +27,12 @@ export default function View_trainings({usersData,searchQuery,handleRegister}) {
                                     disabled={uData.no_of_seats === 0}
                                 >
                                     <span>
-                                        {/* {uData.registered ? (
-                                            <span style={{ backgroundColor: 'green', padding: '8px',borderRadius:'3px' }}>
-                                                UnRegister
-                                            </span>
-                                        ) : ( */}
                                             <span style={{ backgroundColor: '#ff6196', padding: '8px',borderRadius:'3px' }}>
                                         Unenroll
                                     </span>
 
                             
-                                        {/* )} */}
+                                     
                                 </span>
                             </button>
                         </td>
@@ -53,6 +42,6 @@ export default function View_trainings({usersData,searchQuery,handleRegister}) {
                 }
 
         </>
-        </React.Fragment >
+        
     );
 }

@@ -1,5 +1,6 @@
 const db = require("../../Entity")
 const Admin=db.ADMIN_TRAINING
+const request=db.REQUEST
 
 ///create training 
 const create_training = async (req, res) => {
@@ -144,11 +145,28 @@ const deleted_trainings= async(req,res)=>{
     }
 
 }
+
+/// View all training request and feedbacks from user
+const view_request=async(req,res)=>{
+    try {
+         const all_request=await request.findAll()
+         .then((data)=>{
+            if(data){
+                res.send({message:"Request fetched success",data:data})
+            }
+            else{
+                res.status(400).send({message:"Failed to fetch the user_request"})
+            }
+         })
+    } catch (error) {
+        
+    }}
 module.exports = {
 
     create_training,
     delete_training,
     view_trainings,
     restore_trainings,
-    deleted_trainings
+    deleted_trainings,
+    view_request,
 };

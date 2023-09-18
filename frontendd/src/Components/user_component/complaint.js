@@ -4,12 +4,17 @@ import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import emailjs from 'emailjs-com';
 import { useRef } from 'react';
+import userapiService from "../../services/user/userservice";
+import { toast } from "react-toastify";
 
 
 
 export default function Complaint() {
     const form = useRef();
     const [showModal, setShowModal] = useState(false);
+    const [username,setUsername]=useState("hari")
+    const [mail,setMail]=useState('harikrishnan.al@jmangroup.com')
+    const [request,setRequest]=useState()
 
     const handleClose = () => {
         setShowModal(false);
@@ -19,8 +24,9 @@ export default function Complaint() {
         setShowModal(true);
     }
 
-    const sendEmail = (e) => {
+    const sendEmail =async (e) => {
         e.preventDefault();
+        debugger
         emailjs.sendForm('service_203o8iw', 'template_o91f0iq', form.current, '9rndwk3q5_ec5AzuH').then(
             (result) => {
                 console.log(result.text);
@@ -29,6 +35,16 @@ export default function Complaint() {
                 console.log(error.text);
             }
         );
+        const send_db=await userapiService.feedback({username,mail,request}).then((response)=>{
+            
+            if(response.data==="Request sent successfully"){
+                toast.success("Request Submitted")
+            }
+            else{
+                toast.error("Failed to submit your request")
+            }
+        })
+        
     }
 
     return (
@@ -40,15 +56,17 @@ export default function Complaint() {
                 <form ref={form} onSubmit={sendEmail}>
                         <div className="column">
                             <label>Name <span className='reqfield'> * </span></label>
-                            <input className="complaintname" type="text" name="user_name" required/>
+                            <input className="complaintname" type="text" name="user_name"  required value={username} disabled/>
                         </div>
                         <div className="column">
                             <label>Email <span className='reqfield'> * </span></label>
-                            <input className="complaintemail" type="email" name="user_email" required/>
+                            <input className="complaintemail" type="email" name="user_email" value={mail} required disabled/>
                         </div>
                     <div className="row">
                         <label>Message <span className='reqfield'> * </span></label>
-                        <textarea className="complaintmessage" name="message" required/>
+                        <textarea className="complaintmessage" name="message"  onChange={(e)=>{
+                            setRequest(e.target.value)
+                        }} required/>
                     </div>
                     <div className="row">
                         <input type="submit" value="Send" />

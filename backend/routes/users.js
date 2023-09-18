@@ -9,19 +9,21 @@ var Admin = require("../models/controllers/admin/admin");
 // });
 
 ///Admin routes
-router.post('/admin',Admin.create_training)
-router.post('/dtrain',Admin.delete_training)
-router.get('/get_trainings',Admin.view_trainings)
-router.post('/restore',Admin.restore_trainings)
-router.get('/deleted_trainings',Admin.deleted_trainings)
+// router.post('/admin',Admin.create_training)
+// router.post('/dtrain',Admin.delete_training)
+// router.get('/get_trainings',Admin.view_trainings)
+// router.post('/restore',Admin.restore_trainings)
+// router.get('/deleted_trainings',Admin.deleted_trainings)
+// router.get('/view_request',Admin.view_request)
 
-///Use routes
+///User routes
 router.post("/",User.login);// for creating the user
 router.post("/signin",User.create_user);// for creating the user
 router.post('/register',User.register_training) //for registering user to the training
 router.get("/get/:id",User.training_details)
 router.get("/view_trainings/:id",User.view)
 router.put('/unregister',User.unregister)
+router.post('/request',User.request_training)
  
 
 

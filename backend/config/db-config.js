@@ -2,7 +2,7 @@ module.exports= {
 
     USER: "root",
   
-    PASSWORD: "Hari2001",
+    PASSWORD: "12345",
   
     HOST: "127.0.0.1",
   

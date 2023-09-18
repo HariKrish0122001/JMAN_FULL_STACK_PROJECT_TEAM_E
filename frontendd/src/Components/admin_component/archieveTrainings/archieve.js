@@ -4,27 +4,30 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { ToastContainer, toast } from 'react-toastify';
-
+import adminApiService from '../../../services/admin/adminservice';
 
 function History() {
     const [tableData, setTableData] = useState();
     const [modalShow, setModalShow] = useState(false);
+    const [sortBy, setSortBy] = useState(null);
+    const [sortOrder, setSortOrder] = useState('asc');
+    const [updated,setUpdated]=useState()
+
     const handleClose = () => setModalShow(false);
     const handleShow = () => setModalShow(true);
     const handlerestore = async (itemId) => {
 
         const id = itemId
         try {
-            const response = await axios.post(`http://localhost:5000/users/restore`, { id });
+            const response = await adminApiService.restoreTraining(itemId);
 
             if (response.data.message === 'Training restored successfully') {
 
                 const updatedTableData = tableData.filter(item => item.id !== itemId);
                 setTableData(updatedTableData);
                 toast.success("Training restored succesfully")
-                setTimeout(()=>{
-                    window.location.reload()
-                },1500)
+                setUpdated(updatedTableData)
+
 
             } else {
                 toast.error('Error deleting item');
@@ -35,7 +38,7 @@ function History() {
     };
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/users/deleted_trainings');
+            const response = await adminApiService.fetchDeletedTrainings();
             if (response.status === 200) {
                 setTableData(response.data.data);
 
@@ -46,9 +49,11 @@ function History() {
             console.log('Error fetching data:', error);
         }
     };
+
     useEffect(() => {
         fetchData();
-    }, []);
+        
+    }, [updated]);
 
 
     return (
@@ -66,7 +71,6 @@ function History() {
                         Training Schedule
                     </Modal.Title>
                 </Modal.Header>
-
                 <Modal.Body>
 
                     <div className="main-user">
@@ -74,10 +78,9 @@ function History() {
                             <table className="table table-bordered">
                                 <thead>
                                     <tr>
-
-                                        <th scope="col">Project Name</th>
-                                        <th scope="col">Trainer</th>
-                                        <th scope="col">Domain</th>
+                                        <th scope="col" >Project Name</th>
+                                        <th scope="col" >Trainer</th>
+                                        <th scope="col" >Domain</th>
                                         <th scope="col">Start Date</th>
                                         <th scope="col">Start Time</th>
                                         <th scope="col">End Date</th>
