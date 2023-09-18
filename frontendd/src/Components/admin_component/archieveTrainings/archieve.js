@@ -104,7 +104,7 @@ function History() {
 
                                             <td>{(item.initial_seats) - (item.no_of_seats)}</td>
                                             <td>{item.no_of_seats}</td>
-                                            <td><button onClick={() => handlerestore(item.id)}><i class="fa-solid fa-trash del"></i></button></td>
+                                            <td><button className='icon' onClick={() => handlerestore(item.id)}><i class="fa-solid fa-trash del"></i></button></td>
 
                                         </tr>
                                     )) : ""}

@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useMediaQuery, useTheme } from '@mui/material';
 import './styling.css';
-import Complaint from "../../user_component/complaint";
+
 
 function SideNavbar() {
   const theme = useTheme();
@@ -34,11 +34,11 @@ function SideNavbar() {
         <Typography
         variant="h4"
         style={{
-          position:  'absolute', 
+          position:  'absolute', // Position based on screen size
           top: '5px',
-          left: isMobile ? 'unset' : '12%', 
-          right: isMobile ? 0 : 'unset', 
-          marginRight: '8px',
+          left: isMobile ? 'unset' : '12%', // Left or right based on screen size
+          right: isMobile ? 0 : 'unset', // Right or unset based on screen size
+          marginRight: '8px', // Adjust margin as needed
         }}
       >
         UserForm
@@ -57,7 +57,7 @@ function SideNavbar() {
             backgroundColor: 'transparent !important',
             paddingTop:10, 
             paddingLeft:10,
-            borderRadius: 0,
+            borderRadius: 0, // Remove any border radius
             justifyContent: 'flex-start',
           }}
         >
@@ -95,31 +95,7 @@ function SideNavbar() {
           </ListItem>
           <ListItem button>
             
-             <Complaint />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <ContactMailIcon />
-            </ListItemIcon>
-            <ListItemText primary="Contact" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <ContactMailIcon />
-            </ListItemIcon>
-            <ListItemText primary="Contact" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <ContactMailIcon />
-            </ListItemIcon>
-            <ListItemText primary="Contact" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <ContactMailIcon />
-            </ListItemIcon>
-            <ListItemText primary="Contact" />
+           
           </ListItem>
           <ListItem button>
             <ListItemIcon>

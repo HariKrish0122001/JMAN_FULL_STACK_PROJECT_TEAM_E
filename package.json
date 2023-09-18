@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "@mui/material": "^5.14.9"
+    "@mui/icons-material": "^5.14.9",
+    "@mui/material": "^5.14.10",
+    "@mui/styles": "^5.14.10",
+    "@mui/system": "^5.14.10"
   }
 }

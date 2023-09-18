@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import adminApiService from '../../../services/admin/adminservice';
 import SideNavbar from '../navbar/Bar'
 
-// import Swal from 'sweetalert2';
+
 
 
 function MyFormModal(props) {
@@ -27,8 +27,8 @@ function MyFormModal(props) {
         trainer: '',
         skill: '',
         description: '',
-        domain: 'Full Stack', // Default domain value
-        seats: 1, // Default seats value
+        domain: 'Full Stack', 
+        seats: 1, 
     });
     const formRef=useRef()
     const navigate=useNavigate();
@@ -78,7 +78,7 @@ function MyFormModal(props) {
                     </Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body>
+                <Modal.Body >
                     <div className="train">
                         <div className="container">
                             <div className="row justify-content-md-center">
@@ -142,6 +142,7 @@ function MyFormModal(props) {
                                                 <option value="Consulting">Consulting</option>
                                             </select>
                                         </div>
+                                        <div className='date'> 
                                         <div className="form-group">
                                             <label for="startDate">Start Date <span className='reqfield'> * </span></label>
                                             <DatePicker
@@ -174,6 +175,7 @@ function MyFormModal(props) {
                                             />
                                             
                                         </div>
+                                        </div>
                                         <div className="form-group">
                                             <label for="seats">No of Seats <span className='reqfield'> * </span></label>
                                             <input
@@ -202,12 +204,7 @@ function MyFormModal(props) {
                         </div>
                     </div>
 
-
-
-
-
                     <Modal.Footer>
-
 
                     </Modal.Footer>
 

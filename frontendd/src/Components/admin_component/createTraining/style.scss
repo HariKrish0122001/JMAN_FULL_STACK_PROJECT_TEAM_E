@@ -159,20 +159,32 @@ li {
 button[type="submit"]:hover {
   background-color: $primary-background  !important;
 }
-
+.icon{
+  background-color: #ff6196 !important;
+  color: white;
+  border: none;
+  width: 50%;
+}
 .close {
   color: white;
   border: none;
   padding: 8px 25px !important;
-  margin-top: 5%;
   float: right;
   font-size: 5%;
+  margin-top: 5%;
   cursor: pointer;
   transform: skewX(-15deg);
   background-color: $primary-background  !important;
   border-color: $primary-background  !important;
 }
-
+.button_{
+  margin-top: 5%;
+  transform: skewX(-15deg);
+  background-color: #ff6196 !important;
+  border: none !important;
+  padding: 8px 25px !important;
+  cursor: pointer;
+}
 form {
   margin-left: 0  !important;
   background-color: #fff;
@@ -189,6 +201,11 @@ textarea {
 
 .sortdiv{
   width: 20% !important;
+}
+.date{
+  margin-top: 2%;
+  display: flex;
+  justify-content: space-between;
 }
 /* Style form labels */
 label {
@@ -224,6 +241,29 @@ textarea {
 .card:hover {
   transform: translateY(-5px); 
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
+}
+// Pagination
+
+.pagination{
+  margin-left: 40%;
+}
+.active-page {
+  background-color: #ff6196 ; 
+  color: #fff; 
+  border: none;
+}
+.inactive-page{
+  border: none ;
+}
+
+
+// modals
+.modal-header{
+  background-color: #19105b;
+  color: white;
+}
+.btn-close{
+  color: white  !important;
 }
 
 @media (max-width: 282px) {
@@ -268,5 +308,6 @@ textarea {
     position: absolute;
   }
 }
+
 
 

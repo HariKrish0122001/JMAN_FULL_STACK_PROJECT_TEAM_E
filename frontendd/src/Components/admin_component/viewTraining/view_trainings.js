@@ -12,6 +12,8 @@ function Training() {
   const [sortBy, setSortBy] = useState(null);
   const [sortOrder, setSortOrder] = useState('asc');
   const [selectedColumn, setSelectedColumn] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 1;
 
   const handleClose = () => setModalShow(false);
   const handleShow = () => setModalShow(true);
@@ -25,9 +27,6 @@ function Training() {
         const updatedTableData = tableData.filter((item) => item.id !== itemId);
         setTableData(updatedTableData);
         toast.success('Training deleted successfully');
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
       } else {
         toast.error('Error deleting item');
       }
@@ -84,6 +83,16 @@ function Training() {
     return result * order;
   });
 
+  // Calculate total pages and slice data for pagination
+  const totalPages = Math.ceil(sortedData.length / rowsPerPage);
+  const indexOfLastRow = currentPage * rowsPerPage;
+  const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+  const currentRows = sortedData.slice(indexOfFirstRow, indexOfLastRow);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <>
       <ToastContainer />
@@ -99,35 +108,36 @@ function Training() {
             Training Schedule
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body >
           <div className="main-user">
             <div className="table-responsive table-responsive-sm">
-              <div className="search-container" style={{display:"flex", justifyContent:"space-between"}}>
-                <div> 
-                <input
-                  type="text"
-                  className="search"
-                  placeholder="Search by Training name"
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                />
+              <div className="search-container" style={{ display: "flex", justifyContent: "space-between" }}>
+                <div>
+                  <input
+                    type="text"
+                    className="search"
+                    placeholder="Search by Training name"
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                  />
                 </div>
-              <div className='sorting' >
-                <select
-                  id="sortColumn"
-                  value={selectedColumn}
-                  onChange={(e) => {
-                    setSelectedColumn(e.target.value);
-                    handleSort(e.target.value);
-                  }}
-                >
-                  <option value="">Sort by</option>
-                  <option value="training_name">Project Name</option>
-                  <option value="trainer">Trainer</option>
-                  <option value="domain">Domain</option>
-                </select>
+                <div className='sorting'>
+                  <select
+                    id="sortColumn"
+                    value={selectedColumn}
+                    onChange={(e) => {
+                      setSelectedColumn(e.target.value);
+                      handleSort(e.target.value);
+                    }}
+                  >
+                    <option value="">Sort by</option>
+                    <option value="training_name">Project Name</option>
+                    <option value="trainer">Trainer</option>
+                    <option value="domain">Domain</option>
+                  </select>
+                </div>
               </div>
-              </div>
+              <div className="table-responsive table-responsive-sm" style={{ maxWidth: '800px' }}>
               <table className="table table-bordered">
                 <thead>
                   <tr>
@@ -144,8 +154,8 @@ function Training() {
                   </tr>
                 </thead>
                 <tbody>
-                  {sortedData.length > 0 ? (
-                    sortedData.map((item, index) => (
+                  {currentRows.length > 0 ? (
+                    currentRows.map((item, index) => (
                       <tr key={index}>
                         <td>{item.training_name}</td>
                         <td>{item.trainer}</td>
@@ -169,7 +179,7 @@ function Training() {
                         <td>{item.initial_seats - item.no_of_seats}</td>
                         <td>{item.no_of_seats}</td>
                         <td>
-                          <button onClick={() => handleDelete(item.id)}>
+                          <button  className='icon' onClick={() => handleDelete(item.id)}>
                             <i className="fa-solid fa-trash"></i>
                           </button>
                         </td>
@@ -182,9 +192,21 @@ function Training() {
                   )}
                 </tbody>
               </table>
+              </div>
             </div>
           </div>
-          <Modal.Footer></Modal.Footer>
+          {/* Pagination */}
+          <div className="pagination">
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i}
+                onClick={() => handlePageChange(i + 1)}
+                className={currentPage === i + 1 ? "active-page" : "inactive-page"}
+              >
+                {i + 1}
+              </button>
+            ))}
+          </div>
         </Modal.Body>
       </Modal>
       <Button className="schedule" variant="primary" onClick={handleShow}>
