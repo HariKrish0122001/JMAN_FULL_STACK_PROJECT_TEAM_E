@@ -52,6 +52,15 @@ const adminApiService = {
       throw error;
     }
   },
+  requestList:async()=>{
+    try{
+      const response=await Localhost.get('/admin/view_request')
+      return response
+    }
+    catch(e){
+      throw(e)
+    }
+  }
 };
 
 export default adminApiService;

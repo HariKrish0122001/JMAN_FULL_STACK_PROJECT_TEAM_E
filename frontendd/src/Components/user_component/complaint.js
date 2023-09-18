@@ -9,11 +9,12 @@ import { toast } from "react-toastify";
 
 
 
-export default function Complaint() {
+export default function Complaint({user}) {
     const form = useRef();
+    console.log("asdasdadsaffdvsdfgbmsdgjso",user)
     const [showModal, setShowModal] = useState(false);
-    const [username,setUsername]=useState("hari")
-    const [mail,setMail]=useState('harikrishnan.al@jmangroup.com')
+    const username=user.user.data.name
+    const mail=user.user.data.mail
     const [request,setRequest]=useState()
 
     const handleClose = () => {

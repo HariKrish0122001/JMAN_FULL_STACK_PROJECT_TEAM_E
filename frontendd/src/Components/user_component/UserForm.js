@@ -29,11 +29,11 @@ function UserForm() {
 
     const navigate=useNavigate();
 
-    console.log("locaion state",location.state)
-    const { user_id,username } = location.state
+    const user_data= location.state
     
-
-
+    const username=user_data.user.data.name
+    const user_id=user_data.user.data.id
+    
 
     const getUserdata = async () => {
     
@@ -69,7 +69,6 @@ function UserForm() {
     useEffect(() => {
         getUserdata();
         getregisteredUserdata();
-
     }, [updatedtraininguser,updateduser]);
 
     useEffect(() => {
@@ -163,8 +162,8 @@ function UserForm() {
         <div>
             <div className="for w-100">
                 <div className="container-fluid">
-                    <Navbar username={user_name}/>
-                    {/* <Navbar/> */}
+                    <Navbar user={user_data}/>
+                 
                     <ToastContainer />
                     <React.Fragment>
                         <div class="accordion" id="accordionPanelsStayOpenExample">

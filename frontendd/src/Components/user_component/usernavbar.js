@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Complaint from "../user_component/complaint";
 
 
-function Usernavbar({username}) {
+function Usernavbar({user}) {
     const navigate=useNavigate();
     const handleLogout = ()=> {
         localStorage.removeItem('jwtToken');
@@ -12,8 +12,8 @@ function Usernavbar({username}) {
     return (
         <>
             <div className="sidebar">
-                <p className='welcomeAdmin'> Welcome <br/><strong>{username}</strong></p>
-                <Complaint />
+                <p className='welcomeAdmin'> Welcome <br/><strong>{user.user.data.name}</strong></p>
+                <Complaint user={user} />
                 <div className="logout-btn-div">
                     <button className='logOut' onClick={handleLogout}>Logout <i class="logout fa-solid fa-arrow-right-from-bracket"></i></button>
                 </div>

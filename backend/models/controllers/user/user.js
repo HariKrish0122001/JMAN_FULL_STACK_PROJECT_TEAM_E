@@ -39,14 +39,14 @@ const login = async (req, res) => {
                         expiresIn: '1h',
                       });
                       console.log(valid_user.id,"username:",valid_user.name)
-                    res.send({id:valid_user.id,username:valid_user.name,message:"Admin logged",token})
+                    res.send({id:valid_user.id,username:valid_user.name,mail:valid_user.email,message:"Admin logged",token})
                 }
                 else if (!valid_user.isadmin && valid)  {
                    
                     const token = jwt.sign({ userId: valid_user.id, email: valid_user.mail}, process.env.SECRET_KEY, {
                         expiresIn: '1h',
                       });
-                    res.send({id:valid_user.id,username:valid_user.name,message:"User logged",token})
+                    res.send({data:valid_user,message:"User logged",token})
                 }
                 else{
                     res.send("Unauthorized user")

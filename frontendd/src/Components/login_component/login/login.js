@@ -37,9 +37,10 @@ function Login() {
           const token = response.data.token;
           if (response.data.message === 'User logged') {
             localStorage.setItem('jwtToken',token);
+            console.log("RESPONSE DATA",response.data)
             toast.success("Login successful")
             setTimeout(() => {
-              navigate('/userform', { state: { user_id: response.data.id,username:response.data.username } })
+              navigate('/userform', { state: { user: response.data } })
             }, 2000)
           }
           else if (response.data.message === 'Admin logged') {
