@@ -14,6 +14,8 @@ import { ToastContainer,toast} from 'react-toastify';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import adminApiService from '../../../services/admin/adminservice';
+import SideNavbar from '../navbar/Bar'
+
 // import Swal from 'sweetalert2';
 
 
@@ -223,7 +225,8 @@ export default function Admin_training() {
         <>
             <div className='maincontent'>
                 <div className="container mt-5">
-                    <Navbar/>
+                    {/* <Navbar/> */}
+                    <SideNavbar />
                     <div className="row">
 
                         {/* Main Content */}
