@@ -31,7 +31,7 @@ function UserForm() {
 
     console.log("locaion state",location.state)
     const { user_id,username } = location.state
-    // const {user_name}=location.state.username   
+    
 
 
 

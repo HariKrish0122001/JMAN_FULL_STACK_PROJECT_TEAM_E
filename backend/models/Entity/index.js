@@ -31,9 +31,7 @@ db.TRAININGS=require("./trainings/registered_user_table.js")(sequelize,DataTypes
 
 
 db.sequelize.sync({ force: false }, () => {
-
     console.log("Sync done");
-  
   });
   
 

@@ -95,13 +95,12 @@ function Training() {
                     <th scope="col" onClick={() => handleSort('training_name')}>Project Name</th>
                     <th scope="col" onClick={() => handleSort('trainer')}>Trainer</th>
                     <th scope="col" onClick={() => handleSort('domain')}>Domain</th>
-                    {/* Add other columns and sort handlers as needed */}
-                    <th scope="col">Start Date</th>
+                    <th scope="col" >Start Date</th>
                     <th scope="col">Start Time</th>
                     <th scope="col">End Date</th>
                     <th scope="col">End Time</th>
                     <th scope="col">Registered Users</th>
-                    <th scope="col">Vacancies Left</th>
+                    <th scope="col" onClick={() => handleSort('Vacancies Left')}>Vacancies Left</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>

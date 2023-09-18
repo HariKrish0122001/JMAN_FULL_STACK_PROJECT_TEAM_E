@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-
 import './style.scss';
-
 export default function View_trainings({usersData,searchQuery,handleRegister}) {
 
 
     return (
-        <React.Fragment>
+        
 
             <>
                 {
@@ -44,6 +42,6 @@ export default function View_trainings({usersData,searchQuery,handleRegister}) {
                 }
 
         </>
-        </React.Fragment >
+        
     );
 }

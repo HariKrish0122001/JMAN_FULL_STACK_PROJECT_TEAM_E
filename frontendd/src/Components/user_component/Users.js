@@ -10,8 +10,6 @@ export default function Users({usersData,searchQuery,handleRegister}) {
     })
 
     return (
-        <React.Fragment>
-
             <>
             {console.log("filter",filteredUsersData)}
                 {
@@ -54,6 +52,5 @@ export default function Users({usersData,searchQuery,handleRegister}) {
                 }
 
         </>
-        </React.Fragment >
     );
 }
