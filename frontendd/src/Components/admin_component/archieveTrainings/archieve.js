@@ -27,6 +27,9 @@ function History() {
                 setTableData(updatedTableData);
                 toast.success("Training restored succesfully")
                 setUpdated(updatedTableData)
+                setTimeout(()=>{
+                    window.location.reload()
+                },1500)
 
 
             } else {
@@ -58,7 +61,7 @@ function History() {
 
     return (
         <>
-            <ToastContainer />
+            
             <Modal
                 show={modalShow}
                 onHide={handleClose}
@@ -68,7 +71,7 @@ function History() {
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Training Schedule
+                        Archieved Trainings
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -105,7 +108,7 @@ function History() {
 
                                             <td>{(item.initial_seats) - (item.no_of_seats)}</td>
                                             <td>{item.no_of_seats}</td>
-                                            <td><button onClick={() => handlerestore(item.id)}><i class="fa-solid fa-trash del"></i></button></td>
+                                            <td><button className='icon' onClick={() => handlerestore(item.id)}><i class="fa-solid fa-clock-rotate-left"></i></button></td>
 
                                         </tr>
                                     )) : ""}
@@ -122,7 +125,7 @@ function History() {
                 </Modal.Body>
             </Modal >
             <Button className='schedule' variant="primary" onClick={() => setModalShow(true)}>
-                Archieved  <i class="fa-solid fa-clock-rotate-left"></i>
+                Archieved  <i class="fa-solid fa-delete-left"></i>
             </Button>
 
         </>

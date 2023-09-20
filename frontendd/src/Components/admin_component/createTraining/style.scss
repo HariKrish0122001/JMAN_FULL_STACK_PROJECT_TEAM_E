@@ -24,7 +24,12 @@ h3 {
 .card-deck .card {
   min-width: 220px;
 }
-
+.card-header{
+  background-color: #19105b !important;
+}
+h3{
+  color: #ccc !important;
+}
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
@@ -35,7 +40,11 @@ h3 {
 .box-shadow {
   box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
 }
-
+.icon{
+  color: #ff6196 !important;
+  border: none !important;
+  background:none !important;
+}
 /* Nav bar */
 body,
 ul,
@@ -70,7 +79,7 @@ li {
 
 /* Style for the text elements inside the horizontal sidebar */
 .sidebar p {
-    margin: 0; /* Remove default margin */
+    margin: 0; 
 
 }
 }
@@ -115,7 +124,9 @@ li {
   color: rgb(139, 9, 9);
   font-weight: bolder;
 }
-
+.headings{
+  margin-top: 2% !important;
+}
 // .logout {
 //   padding-left: 50px !important;
 // }
@@ -123,7 +134,7 @@ li {
 /* maincontent */
 @media (min-width: 768px) {
   .maincontent {
-    margin: 15% 0 0 30%;
+    margin: 7% 0 0 25%;
   }
 }
 
@@ -138,7 +149,10 @@ li {
     margin: 10% 0 0 10%;
   }
 }
-
+.modal-header{
+  background-color: #19105b !important;
+  color: #ccc !important;
+}
 /* buttons */
 ._button {
   background-color: #ff6196 !important;
@@ -146,6 +160,15 @@ li {
   border: none !important;
   width: 100%;
   margin-top: 5%;
+ 
+
+}
+.button_{
+  margin-top: 3%;
+  background-color: #ff6196 !important;
+  border: none !important;
+  padding: 8px 25px !important;
+  transform: skewX(-15deg);
 }
 
 .schedule{
@@ -164,9 +187,9 @@ button[type="submit"]:hover {
   color: white;
   border: none;
   padding: 8px 25px !important;
-  margin-top: 5%;
   float: right;
   font-size: 5%;
+  margin-top: 3%;
   cursor: pointer;
   transform: skewX(-15deg);
   background-color: $primary-background  !important;
@@ -192,6 +215,11 @@ label {
   font-weight: bold;
 }
 
+.time{
+  margin-top: 2%;
+  display: flex;
+  justify-content: space-between;
+}
 
 
 /* Style form inputs and textarea */
@@ -267,3 +295,17 @@ textarea {
 }
 
 
+.active-page{
+  background-color: #ff6196 !important;
+  border: none !important;
+  color: #ccc !important;
+
+}
+.inactive-page{
+  background-color: white !important;
+  border: none !important;
+  color: black!important;
+}
+.pagination{
+  margin-left: 40%;
+}

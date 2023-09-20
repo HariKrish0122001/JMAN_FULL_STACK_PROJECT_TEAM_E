@@ -1,7 +1,4 @@
-
-
 import Localhost from '../../Http/http';
-
 
 const userapiService = {
   fetchUserData: async (user_id) => {

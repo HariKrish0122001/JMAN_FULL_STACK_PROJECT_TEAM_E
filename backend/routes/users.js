@@ -3,18 +3,8 @@ var router = express.Router();
 var User = require("../models/controllers/user/user");
 var Admin = require("../models/controllers/admin/admin");
 
-/* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
 
-///Admin routes
-// router.post('/admin',Admin.create_training)
-// router.post('/dtrain',Admin.delete_training)
-// router.get('/get_trainings',Admin.view_trainings)
-// router.post('/restore',Admin.restore_trainings)
-// router.get('/deleted_trainings',Admin.deleted_trainings)
-// router.get('/view_request',Admin.view_request)
+
 
 ///User routes
 router.post("/",User.login);// for creating the user
@@ -24,7 +14,5 @@ router.get("/get/:id",User.training_details)
 router.get("/view_trainings/:id",User.view)
 router.put('/unregister',User.unregister)
 router.post('/request',User.request_training)
- 
-
 
 module.exports = router;

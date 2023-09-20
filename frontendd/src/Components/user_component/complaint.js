@@ -51,7 +51,7 @@ export default function Complaint({user}) {
     return (
         <>
             <button className="complaint" onClick={handleShow}>
-                Request <i class="fa-regular fa-thumbs-up"></i>
+                Request <i class="fa-regular fa-comment"></i>
             </button>
             <Modal show={showModal} onHide={handleClose} className="complaint">
                 <form ref={form} onSubmit={sendEmail}>

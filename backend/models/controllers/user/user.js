@@ -2,7 +2,7 @@ const { Op } = require("sequelize")
 const db = require("../../Entity")
 const bcrypt=require("bcrypt")
 const jwt = require('jsonwebtoken');
-const secretkey='jman';
+
 const env=require('dotenv')
 
 env.config('/.env')

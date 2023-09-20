@@ -49,7 +49,7 @@ export default function Viewrequests({ user }) {
     return (
         <>
             <button className="complaint" onClick={handleShow}>
-                View Requests
+                Requests <i class="fa-regular fa-comment"></i>
             </button>
             <ToastContainer/>
             <Modal show={showModal} onHide={handleClose} className="complaint">

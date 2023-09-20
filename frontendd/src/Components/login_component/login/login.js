@@ -36,7 +36,7 @@ function Login() {
           const response = await loginapiService.login(email, password);
           const token = response.data.token;
           if (response.data.message === 'User logged') {
-            localStorage.setItem('jwtToken',token);
+            localStorage.setItem('userjwtToken',token);
             console.log("RESPONSE DATA",response.data)
             toast.success("Login successful")
             setTimeout(() => {
@@ -44,7 +44,7 @@ function Login() {
             }, 2000)
           }
           else if (response.data.message === 'Admin logged') {
-            localStorage.setItem('jwtToken',token);
+            localStorage.setItem('adminjwtToken',token);
             toast.success(" Admin Login successful")
             setTimeout(() => {
               navigate('/admin_training')
@@ -78,7 +78,7 @@ function Login() {
       </div>
       <div className="login-right">
         <form onSubmit={validationReg}>
-          <h1 className="heading">Welcome Back :)</h1>
+          <h1 className="heading">Login</h1>
           <div className="login-input-container">
             <i className="fa-regular fa-envelope"></i>
             <input

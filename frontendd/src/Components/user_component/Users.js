@@ -11,7 +11,7 @@ export default function Users({usersData,searchQuery,handleRegister}) {
 
     return (
             <>
-            {console.log("filter",filteredUsersData)}
+            
                 {
                     filteredUsersData.map((uData, index) => (
                        
@@ -31,19 +31,7 @@ export default function Users({usersData,searchQuery,handleRegister}) {
                                     className={`btn text-white`}
                                     disabled={uData.no_of_seats === 0 || uData.registered}
                                 >
-                                    <span>
-                                        {/* {uData.registered ? (
-                                            <span style={{ backgroundColor: 'green', padding: '8px',borderRadius:'3px' }}>
-                                                Registered
-                                            </span>
-                                        ) : ( */}
-                                            <span style={{ backgroundColor: '#ff6196', padding: '8px',borderRadius:'3px' }}>
-                                        Enroll 
-                                   </span>
-
-                            
-                                         {/* )}  */}
-                                </span>
+                                    <i class="fa-solid fa-user-plus icon"></i>
                             </button>
                         </td>
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Users from './Users';
 import './style.scss'
 import { Navigate, useLocation } from 'react-router-dom';
@@ -10,33 +10,23 @@ import userapiService from '../../services/user/userservice';
 
 
 function UserForm() {
-
     const [searchQuery, setSearchQuery] = useState('');
-    
     const [userdata, setUserdata] = useState([]);
-    
     const [traindata, setTraindata] = useState([])
-    
     const [id, setId] = useState('')
-    
-    const [user_name,setUsername]=useState('')
-
-    const [updateduser,Setupdateduser]=useState()
-
-    const [updatedtraininguser,Setupdatedtraininguser]=useState()
-    
+    const [user_name, setUsername] = useState('')
+    const [updateduser, Setupdateduser] = useState()
+    const [updatedtraininguser, Setupdatedtraininguser] = useState()
     const location = useLocation()
+    const navigate = useNavigate();
+    const user_data = location.state
 
-    const navigate=useNavigate();
+    const username = user_data.user.data.name
+    const user_id = user_data.user.data.id
 
-    const user_data= location.state
-    
-    const username=user_data.user.data.name
-    const user_id=user_data.user.data.id
-    
 
     const getUserdata = async () => {
-    
+
         try {
 
             setId(user_id)
@@ -44,7 +34,7 @@ function UserForm() {
             console.log(user_id)
             const req = await userapiService.fetchUserData(user_id);
             if (req.data.length > 0) {
-               
+
                 setUserdata(req.data);
             }
         } catch (e) {
@@ -69,22 +59,22 @@ function UserForm() {
     useEffect(() => {
         getUserdata();
         getregisteredUserdata();
-    }, [updatedtraininguser,updateduser]);
+    }, [updatedtraininguser, updateduser]);
 
     useEffect(() => {
-        const jwtToken = localStorage.getItem('jwtToken');
+        const jwtToken = localStorage.getItem('userjwtToken');
         console.log(jwtToken)
         if (!jwtToken) {
-          toast.error('Unauthorized access');
-          navigate('/');
+            toast.error('Unauthorized access');
+            navigate('/');
         }
-      }, []); // Empty dependency array ensures this runs once on component mount
-      
-  
+    }, []); // Empty dependency array ensures this runs once on component mount
+
+
     const handleRegister = async (index) => {
         const updatedUsersData = [...userdata];
         const userData = updatedUsersData[index];
-      
+
         if (userData.no_of_seats > 0) {
             const confirmation = window.confirm('Do you want to register?');
 
@@ -93,28 +83,27 @@ function UserForm() {
                 userData.register = true
                 try {
                     // POST request to your server to insert the user data into a separate table
-                    const reg_train = await userapiService.registerTraining( {
+                    const reg_train = await userapiService.registerTraining({
                         training_id: userData.id,
                         user_id: id,
                     }).then((response) => {
 
-                        if(response.data.message==='Register Data Updated successfully')
-                        {
+                        if (response.data.message === 'Register Data Updated successfully') {
                             const updatedUsersData = [...userdata];
                             updatedUsersData[index] = userData;
                             updatedUsersData.splice(index, 1);
                             toast.success("Registeration successful")
-        
+
                             setUserdata(updatedUsersData);
                             Setupdateduser(userdata)
                         }
-                        else{
+                        else {
                             toast.error("Failed to register")
                         }
                     }).catch((e) => {
                         console.log(e)
                     })
-                    
+
                 } catch (error) {
                     toast.error('Error registering user:', error);
                 }
@@ -124,32 +113,32 @@ function UserForm() {
     };
 
     const handleUnregister = async (index) => {
-        const updatedUsersData = [...traindata]; 
+        const updatedUsersData = [...traindata];
         const userData = updatedUsersData[index];
-        
+
 
         const confirmation = window.confirm('Do you want to unregister this training?');
-     
+
         if (confirmation) {
-           
+
             try {
-               
+
                 const unregister = await userapiService.unregisterTraining({
                     training_id: userData.id,
                     user_id: id
-                }).then((response)=>{
-                  if(response.data==='unregistered successfully')  {
-                    const updatedUsersData = [...traindata];
-                updatedUsersData[index] = userData;
-                updatedUsersData.splice(index, 1);
-                toast.info("Training unregistered successfully")
-               
-                setTraindata(updatedUsersData)
-                Setupdatedtraininguser(traindata)
-                  }
-                  else{
-                    toast.error("Failed to Unenroll")
-                  }
+                }).then((response) => {
+                    if (response.data === 'unregistered successfully') {
+                        const updatedUsersData = [...traindata];
+                        updatedUsersData[index] = userData;
+                        updatedUsersData.splice(index, 1);
+                        toast.info("Training unregistered successfully")
+
+                        setTraindata(updatedUsersData)
+                        Setupdatedtraininguser(traindata)
+                    }
+                    else {
+                        toast.error("Failed to Unenroll")
+                    }
                 })
             } catch (error) {
                 console.log("error from db")
@@ -157,13 +146,13 @@ function UserForm() {
         }
     }
 
-    
     return (
         <div>
+            <h1>Learning and Development</h1>
             <div className="for w-100">
                 <div className="container-fluid">
-                    <Navbar user={user_data}/>
-                 
+                    <Navbar user={user_data} />
+
                     <ToastContainer />
                     <React.Fragment>
                         <div class="accordion" id="accordionPanelsStayOpenExample">
@@ -176,21 +165,11 @@ function UserForm() {
 
                                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                                     <div className="accordion-body">
-                                        <div className="form-group pull-right">
-                                            <input
-                                                id='search'
-                                                type="text"
-                                                className="search form-control"
-                                                placeholder=" &#x1F50D; Search Trainings by Training name"
-                                                value={searchQuery}
-                                                onChange={e => setSearchQuery(e.target.value)}></input>
-                                        </div>
-
                                         <div className="table-responsive table-responsive-sm">
                                             <table className="table table-hover table-bordered results" id="allTrainings">
                                                 <thead>
                                                     <tr>
-                                                     
+
                                                         <th >Domain Name</th>
                                                         <th >Training Name</th>
                                                         <th>Trainer</th>
@@ -229,7 +208,7 @@ function UserForm() {
                                             <table className="table table-hover table-bordered results" id="allTrainings">
                                                 <thead>
                                                     <tr>
-                                                      
+
                                                         <th >Domain Name</th>
                                                         <th >Training Name</th>
                                                         <th>Trainer</th>

@@ -7,9 +7,7 @@ import Login from './Components/login_component/login/login'
 import Signup from './Components/login_component/signin/register';
 // import Users from './user_component/Users';
 import UserForm from './Components/user_component/UserForm';
-import PrivateRoute from './privateroute';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 
 
 function App() {

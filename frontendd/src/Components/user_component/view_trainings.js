@@ -11,7 +11,6 @@ export default function View_trainings({usersData,searchQuery,handleRegister}) {
                     usersData.map((uData, index) => (
                        
                         <tr key={uData.id}>
-                            {/* <td>{uData.id} </td> */}
                             <td>{uData.domain}</td>
                             
                             <td>{uData.training_name} </td>
@@ -25,15 +24,9 @@ export default function View_trainings({usersData,searchQuery,handleRegister}) {
                                     onClick={() => handleRegister(index)}
                                     className={`btn text-white`}
                                     disabled={uData.no_of_seats === 0}
-                                >
-                                    <span>
-                                            <span style={{ backgroundColor: '#ff6196', padding: '8px',borderRadius:'3px' }}>
-                                        Unenroll
-                                    </span>
-
-                            
-                                     
-                                </span>
+                                > 
+                                <i class="fa-solid fa-user-minus icon"></i>
+                             
                             </button>
                         </td>
 
